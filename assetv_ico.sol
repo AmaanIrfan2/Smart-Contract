@@ -19,6 +19,18 @@ contract assetv_ico {
     mapping (address => uint) equity_usd;
 
     //check if investor can buy assetv through modifier
-    
+    modifier check_max(uint usd_invested){
+        require((usd_invested*usd_to_assetv + total_assetv_bought) <= max_assetv); 
+        _;
+    }
 
+    //Getting the equity of assetv of the investor 
+    function equity_in_assetv(address investor) external constant returns (uint) {
+        return equity_assetv[investor];
+    }
+
+    //Getting the equity of USD of the investor 
+    function equity_in_usd(address investor) external constant returns (uint) {
+        return equity_usd[investor];
+    }
 }
